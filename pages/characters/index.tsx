@@ -6,6 +6,7 @@ import { APIResponse, CharacterResponse } from "../../apis/types";
 import Card from "../../components/Card";
 import Grid from "../../components/Grid";
 import { useInView } from "react-intersection-observer";
+import { Header } from "../../components/Header";
 
 export default function characters() {
   const { ref, inView } = useInView();
@@ -45,40 +46,43 @@ export default function characters() {
   }
 
   return (
-    <div className="px-10 flex flex-col justify-center ">
-      <Grid title={"All Characters"}>
-        {data?.pages.map((page, i) => (
-          <React.Fragment key={i}>
-            {page.results?.map((person: CharacterResponse) => (
-              <article
-                className="cursor-pointer hover:opacity-80 duration-300"
-                key={person.id}
-                style={{ margin: "16px 0 0" }}
-              >
-                <Link href={`/characters/${person.id}`}>
-                  <Card imgUrl={person.image} title={person.name} />
-                </Link>
-              </article>
-            ))}
-          </React.Fragment>
-        ))}
-      </Grid>
-      <button
-        ref={ref}
-        onClick={() => fetchNextPage()}
-        className=" shadow-sm text-white font-semibold text-sm py-2 px-4 bg-sky-500 rounded-none mt-5 mx-auto"
-        disabled={!hasNextPage || isFetchingNextPage}
-      >
-        {isFetchingNextPage
-          ? "Loading more..."
-          : hasNextPage
-          ? "Load More"
-          : "Nothing more to load"}
-      </button>
+    <>
+      <Header />
+      <div className="px-10 flex flex-col justify-center ">
+        <Grid title={"All Characters"}>
+          {data?.pages.map((page, i) => (
+            <React.Fragment key={i}>
+              {page.results?.map((person: CharacterResponse) => (
+                <article
+                  className="cursor-pointer hover:opacity-80 duration-300"
+                  key={person.id}
+                  style={{ margin: "16px 0 0" }}
+                >
+                  <Link href={`/characters/${person.id}`}>
+                    <Card imgUrl={person.image} title={person.name} />
+                  </Link>
+                </article>
+              ))}
+            </React.Fragment>
+          ))}
+        </Grid>
+        <button
+          ref={ref}
+          onClick={() => fetchNextPage()}
+          className=" shadow-sm text-white font-semibold text-sm py-2 px-4 bg-sky-500 rounded-none mt-5 mx-auto"
+          disabled={!hasNextPage || isFetchingNextPage}
+        >
+          {isFetchingNextPage
+            ? "Loading more..."
+            : hasNextPage
+            ? "Load More"
+            : "Nothing more to load"}
+        </button>
 
-      <div>
-        {isFetching && !isFetchingNextPage ? "Background Updating..." : null}
+        <div>
+          {isFetching && !isFetchingNextPage ? "Background Updating..." : null}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
