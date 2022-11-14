@@ -5,7 +5,7 @@ export type APIResponse = {
     next: string | null;
     prev: string | null;
   };
-  results: CharacterResponse[] | LocationResponse[] | EpisodeResponse[];
+  results: CharacterResponse[] & LocationResponse[] & EpisodeResponse[];
 };
 
 export type CharacterResponse = {
