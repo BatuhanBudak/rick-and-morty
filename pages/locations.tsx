@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import rickMorty from "../apis/rickMorty";
 import { APIResponse, LocationResponse } from "../apis/types";
 
@@ -35,13 +35,12 @@ export default function locations() {
   }
 
   return (
-    <div className="flex flex-col justify-center p-5 pt-2 md:p-10 md:pt-5">
-      <table className="w-full text-sm md:text-base table-auto border-collapse border border-slate-400 mt-5 text-left">
-        <thead
-          style={{
-            color: "rgb(79,89,102)",
-          }}
-        >
+    <main
+      className="flex flex-col justify-center mt-16 p-5 pt-2 md:p-10 md:pt-5"
+      style={{ backgroundColor: "rgb(32, 35, 41)" }}
+    >
+      <table className="w-full text-white text-sm md:text-base table-auto border-collapse border border-slate-400 mt-5 text-left">
+        <thead>
           <tr>
             <th className="border border-slate-300 p-1" scope="col">
               ID
@@ -62,13 +61,7 @@ export default function locations() {
             <React.Fragment key={i}>
               {page.results?.map((location: LocationResponse) => (
                 <tr key={location.id}>
-                  <th
-                    style={{
-                      color: "rgb(79,89,102)",
-                    }}
-                    className="border border-slate-300 p-1"
-                    scope="row"
-                  >
+                  <th className="border border-slate-300 p-1" scope="row">
                     {location.id}-
                   </th>
                   <td className="border border-slate-300 p-1">
@@ -103,6 +96,6 @@ export default function locations() {
       <div>
         {isFetching && !isFetchingNextPage ? "Background Updating..." : null}
       </div>
-    </div>
+    </main>
   );
 }

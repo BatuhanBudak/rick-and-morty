@@ -8,7 +8,7 @@ const Thumb = ({ imgUrl }: Props) => (
   <Image
     placeholder="blur"
     blurDataURL="/placeholder.jpg"
-    className="rounded-lg object-cover"
+    className="rounded-lg object-cover "
     fill
     sizes="(max-width: 768px) 100vw,
               (max-width: 1200px) 50vw,

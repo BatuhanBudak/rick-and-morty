@@ -22,17 +22,21 @@ const CharacterInfo = ({
   origin,
   location,
 }: Props) => (
-  <div className="relative w-full h-auto p-4 ">
-    <div className="relative h-full min-h-128 flex flex-col md:flex-row max-w-7xl px-4 py-10 m-auto z-10 rounded-xl bg-zinc-800 bg-opacity-90">
-      <div className="relative w-full h-96  md:w-1/3">
+  <div className="relative h-auto  ">
+    <div
+      className="relative h-full min-h-128 flex flex-col md:flex-row max-w-2xl  m-auto z-10 rounded-xl bg-zinc-800 bg-opacity-90"
+      style={{
+        backgroundColor: "rgb(60, 62, 68)",
+      }}
+    >
+      <div className="relative w-full h-96  md:w-1/2">
         <Thumb imgUrl={thumbUrl} />
       </div>
-      <div className="text-white px-0 py-4 md:py-0 text-center md:px-8 w-full md:w-2/3">
-        <ul className="flex flex-col flex-wrap h-full justify-between gap-4">
-          <li className="text-base md:text-xl">Name: {name}</li>
-          <li className="text-base md:text-xl">Gender: {gender}</li>
-          <li className="text-base md:text-xl capitalize">
-            Status: {status}
+      <div className="text-white px-0 py-4  text-center md:px-8 w-full md:w-1/2">
+        <ul className="flex flex-col justify-around h-full gap-4">
+          <li className="text-2xl"> {name}</li>
+          <li className=" capitalize">
+            {species} - {status}
             <span
               className={`inline-block ml-2 w-2 h-2 rounded-full  ${
                 status === "Alive"
@@ -43,10 +47,15 @@ const CharacterInfo = ({
               } `}
             ></span>
           </li>
-          <li className="text-base md:text-xl">Species: {species}</li>
-          <li className="text-base md:text-xl ">Origin: {origin}</li>
-          <li className="text-base md:text-xl">Location: {location}</li>
-          {type ? <li className="text-base md:text-xl">Type: {type}</li> : null}
+
+          <li>
+            Last known location: <span className="block">{location}</span>
+          </li>
+          <li>
+            First seen in:
+            <span className="block">{origin}</span>
+          </li>
+          {type ? <li>Type: {type}</li> : null}
         </ul>
       </div>
     </div>
