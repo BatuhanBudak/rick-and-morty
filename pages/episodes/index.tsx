@@ -35,7 +35,7 @@ export default function Episodes() {
     if (inView) {
       fetchNextPage();
     }
-  }, [inView]);
+  }, [inView, fetchNextPage]);
 
   if (status === "loading") {
     return <p>Loading...</p>;

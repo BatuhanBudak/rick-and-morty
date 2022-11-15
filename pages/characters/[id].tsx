@@ -9,12 +9,11 @@ type Props = {
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
 
 const CharacterInfoPage: NextPage<Props> = ({ characterData }) => {
   return (
     <main
-      className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-2 p-6 h-screen"
+      className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-2 p-6 "
       style={{ backgroundColor: "rgb(32, 35, 41)" }}
     >
       <CharacterInfo
@@ -67,13 +66,20 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       characterData,
     },
-    revalidate: 60 * 60 * 24, // Re-build page every 24 hours
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const response = await rickMorty.get(
+    "https://rickandmortyapi.com/api/character"
+  );
+
+  const paths = response.data.results.map((character: CharacterResponse) => ({
+    params: { id: String(character.id) },
+  }));
+
   return {
-    paths: [],
+    paths,
     fallback: "blocking",
   };
 };

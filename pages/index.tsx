@@ -10,33 +10,27 @@ import Spinner from "../components/Spinner";
 
 export default function characters() {
   const { ref, inView } = useInView();
-  const {
-    status,
-    data,
-    isFetching,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery(
-    ["characters"],
-    async ({ pageParam = 1 }) => {
-      const res = await rickMorty.get(`/character?page=${pageParam}`);
-      return res.data;
-    },
-    {
-      getNextPageParam: (lastPage: APIResponse, pages: APIResponse[]) => {
-        if (lastPage.info.next) {
-          return pages.length + 1;
-        }
-        return undefined;
+  const { status, data, isFetchingNextPage, fetchNextPage, hasNextPage } =
+    useInfiniteQuery(
+      ["characters"],
+      async ({ pageParam = 1 }) => {
+        const res = await rickMorty.get(`/character?page=${pageParam}`);
+        return res.data;
       },
-    }
-  );
+      {
+        getNextPageParam: (lastPage: APIResponse, pages: APIResponse[]) => {
+          if (lastPage.info.next) {
+            return pages.length + 1;
+          }
+          return undefined;
+        },
+      }
+    );
   useEffect(() => {
     if (inView) {
       fetchNextPage();
     }
-  }, [inView]);
+  }, [inView, fetchNextPage]);
 
   if (status === "loading") {
     return <p>Loading...</p>;
