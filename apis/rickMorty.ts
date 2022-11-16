@@ -22,7 +22,7 @@ export const getCharacterByName = async (
       `https://rickandmortyapi.com/api/character/?name=${name}`
     );
     const total_pages = response.data.info.pages;
-    for (let index = 1; index < total_pages + 1; index++) {
+    for (let index = 1; index <= total_pages; index++) {
       const response = await axios.get(
         `https://rickandmortyapi.com/api/character/?page=${index}&name=${name}`
       );
@@ -32,5 +32,44 @@ export const getCharacterByName = async (
     return characters;
   } catch (err) {
     console.error(err);
+  }
+};
+export const getCharacters = async (page: number, filter: string) => {
+  if (filter === "alive" || filter === "dead" || filter === "unknown") {
+    try {
+      const response = await axios.get(
+        `https://rickandmortyapi.com/api/character/?page=${page}&status=${filter}`
+      );
+      return response.data;
+    } catch (err) {
+      console.error(err);
+    }
+  } else if (filter === "male" || filter === "female") {
+    try {
+      const response = await axios.get(
+        `https://rickandmortyapi.com/api/character/?page=${page}&gender=${filter}`
+      );
+      return response.data;
+    } catch (err) {
+      console.error(err);
+    }
+  } else if (filter === "human" || filter === "alien") {
+    try {
+      const response = await axios.get(
+        `https://rickandmortyapi.com/api/character/?page=${page}&species=${filter}`
+      );
+      return response.data;
+    } catch (err) {
+      console.error(err);
+    }
+  } else if (!filter) {
+    try {
+      const response = await axios.get(
+        `https://rickandmortyapi.com/api/character/?page=${page}`
+      );
+      return response.data;
+    } catch (err) {
+      console.error(err);
+    }
   }
 };

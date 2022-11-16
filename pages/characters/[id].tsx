@@ -2,7 +2,7 @@ import CharacterInfo from "../../components/CharacterInfo";
 import rickMorty, { getCharacter } from "../../apis/rickMorty";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { CharacterResponse } from "../../apis/types";
-
+import { useRouter } from "next/router";
 type Props = {
   characterData: CharacterResponse;
 };
@@ -11,6 +11,8 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
 const CharacterInfoPage: NextPage<Props> = ({ characterData }) => {
+  const router = useRouter();
+  console.log(router);
   return (
     <main
       className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-2 p-6 "

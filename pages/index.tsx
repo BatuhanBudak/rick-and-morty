@@ -1,22 +1,23 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { queryClient } from "./_app";
 import Link from "next/link";
-import React, { useEffect, useRef } from "react";
-import rickMorty from "../apis/rickMorty";
+import React, { useEffect, useState } from "react";
 import { APIResponse, CharacterResponse } from "../apis/types";
 import Card from "../components/Card";
 import Grid from "../components/Grid";
-import { useInView } from "react-intersection-observer";
 import Spinner from "../components/Spinner";
 import { AutoComplete } from "../components/AutoComplete";
+import { getCharacters } from "../apis/rickMorty";
 
 export default function characters() {
-  const { ref, inView } = useInView();
+  const [filter, setFilter] = useState("");
+
   const { status, data, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteQuery(
       ["characters"],
       async ({ pageParam = 1 }) => {
-        const res = await rickMorty.get(`/character?page=${pageParam}`);
-        return res.data;
+        const res = getCharacters(pageParam, filter);
+        return res;
       },
       {
         getNextPageParam: (lastPage: APIResponse, pages: APIResponse[]) => {
@@ -25,29 +26,68 @@ export default function characters() {
           }
           return undefined;
         },
+        enabled: false,
       }
     );
+
   useEffect(() => {
-    if (inView) {
+    if (filter) {
+      queryClient.removeQueries({ queryKey: ["characters"], exact: true });
       fetchNextPage();
     }
-  }, [inView, fetchNextPage]);
+  }, [fetchNextPage, filter]);
 
-  if (status === "loading") {
-    return <p>Loading...</p>;
-  }
   if (status === "error") {
     return <p>Error </p>;
   }
 
   return (
-    <main>
+    <main className="h-screen ">
       <div
-        className="px-10 flex flex-col justify-center "
+        className="p-10 flex flex-col justify-center "
         style={{ backgroundColor: "rgb(32, 35, 41)" }}
       >
         <AutoComplete />
-        <Grid title={"All Characters"}>
+        <div className="flex justify-center gap-4">
+          <button
+            className="button  px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
+            onClick={() => setFilter("male")}
+          >
+            Male Characters
+          </button>
+          <button
+            className="button  px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
+            onClick={() => setFilter("female")}
+          >
+            Female Characters
+          </button>
+          <button
+            className="button  px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
+            onClick={() => setFilter("human")}
+          >
+            Human Characters
+          </button>
+          <button
+            className="button  px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
+            onClick={() => setFilter("alien")}
+          >
+            Alien Characters
+          </button>
+          <button
+            className="button  px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
+            onClick={() => setFilter("alive")}
+          >
+            Alive Characters
+          </button>
+          <button
+            className="button  px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
+            onClick={() => setFilter("dead")}
+          >
+            Dead Characters
+          </button>
+        </div>
+
+        <Grid title={filter ? `All ${filter} characters` : ""}>
           {data?.pages.map((page, i) => (
             <React.Fragment key={i}>
               {page.results?.map((person: CharacterResponse) => (
@@ -65,9 +105,8 @@ export default function characters() {
           ))}
         </Grid>
         <button
-          ref={ref}
           onClick={() => fetchNextPage()}
-          className=" shadow-sm text-white font-semibold text-sm py-2 px-4 bg-sky-500 rounded-none mt-5 mx-auto"
+          className=" shadow-sm text-white font-semibold text-sm py-2 px-4 bg-sky-500 rounded-none mt-5 mx-auto hover:bg-sky-600"
           disabled={!hasNextPage || isFetchingNextPage}
         >
           {isFetchingNextPage

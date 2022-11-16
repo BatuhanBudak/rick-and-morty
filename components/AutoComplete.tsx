@@ -64,7 +64,7 @@ export const AutoComplete = () => {
   }, [search]);
 
   return (
-    <div className="w-50 p-5 rounded mx-auto mt-16">
+    <div className="w-50 my-5 rounded mx-auto ">
       <div className="form-floating dropdown">
         <input
           style={{
