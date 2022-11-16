@@ -1,5 +1,4 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { queryClient } from "./_app";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { APIResponse, CharacterResponse } from "../apis/types";
@@ -11,7 +10,7 @@ import { getCharacters } from "../apis/rickMorty";
 
 export default function characters() {
   const [filter, setFilter] = useState("");
-
+  const queryClient = useQueryClient();
   const { status, data, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteQuery(
       ["characters"],
@@ -26,7 +25,7 @@ export default function characters() {
           }
           return undefined;
         },
-        enabled: false,
+        enabled: !!filter,
       }
     );
 
