@@ -7,6 +7,7 @@ import Card from "../components/Card";
 import Grid from "../components/Grid";
 import { useInView } from "react-intersection-observer";
 import Spinner from "../components/Spinner";
+import { AutoComplete } from "../components/AutoComplete";
 
 export default function characters() {
   const { ref, inView } = useInView();
@@ -45,6 +46,7 @@ export default function characters() {
         className="px-10 flex flex-col justify-center "
         style={{ backgroundColor: "rgb(32, 35, 41)" }}
       >
+        <AutoComplete />
         <Grid title={"All Characters"}>
           {data?.pages.map((page, i) => (
             <React.Fragment key={i}>
