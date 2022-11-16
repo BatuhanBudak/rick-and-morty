@@ -47,39 +47,39 @@ export default function characters() {
         style={{ backgroundColor: "rgb(32, 35, 41)" }}
       >
         <AutoComplete />
-        <div className="flex justify-center gap-4">
+        <div className="flex flex-wrap md:flex-row md:flex-nowrap justify-center gap-3 md:gap-4">
           <button
-            className="button  px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
+            className="button leading-4 w-2/5 md:w-auto px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
             onClick={() => setFilter("male")}
           >
             Male Characters
           </button>
           <button
-            className="button  px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
+            className="button leading-4 w-2/5 md:w-auto px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
             onClick={() => setFilter("female")}
           >
             Female Characters
           </button>
           <button
-            className="button  px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
+            className="button leading-4 w-2/5 md:w-auto px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
             onClick={() => setFilter("human")}
           >
             Human Characters
           </button>
           <button
-            className="button  px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
+            className="button leading-4 w-2/5 md:w-auto px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
             onClick={() => setFilter("alien")}
           >
             Alien Characters
           </button>
           <button
-            className="button  px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
+            className="button leading-4 w-2/5 md:w-auto px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
             onClick={() => setFilter("alive")}
           >
             Alive Characters
           </button>
           <button
-            className="button  px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
+            className="button leading-4 w-2/5 md:w-auto px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
             onClick={() => setFilter("dead")}
           >
             Dead Characters
