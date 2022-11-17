@@ -34,7 +34,10 @@ export const getCharacterByName = async (
     console.error(err);
   }
 };
-export const getCharacters = async (page: number, filter: string) => {
+export const getCharacters = async (
+  page: number,
+  filter: string | string[]
+) => {
   if (filter === "alive" || filter === "dead" || filter === "unknown") {
     try {
       const response = await axios.get(
