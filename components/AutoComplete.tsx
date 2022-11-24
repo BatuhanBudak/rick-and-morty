@@ -43,13 +43,9 @@ export const AutoComplete = () => {
   useEffect(() => {
     let isMounted = true;
     const fetchData = async () => {
-      try {
-        const data = await getCharacterByName(search);
-        if (isMounted) {
-          setResults(data);
-        }
-      } catch (err) {
-        console.log(err);
+      const data = await getCharacterByName(search);
+      if (isMounted) {
+        setResults(data);
       }
     };
     if (search.length > 0) {
