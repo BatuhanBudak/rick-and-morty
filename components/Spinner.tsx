@@ -1,5 +1,8 @@
 const Spinner = () => (
-  <div className="fixed top-[50%] left-[50%] flex items-center justify-center m-4">
+  <div
+    data-testid="spinner"
+    className="fixed top-[50%] left-[50%] flex items-center justify-center m-4"
+  >
     <svg
       className="w-12 h-12 animate-spin"
       viewBox="0 0 1 44"

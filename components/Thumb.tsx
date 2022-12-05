@@ -15,6 +15,7 @@ const Thumb = ({ imgUrl }: Props) => (
               33vw"
     src={imgUrl}
     alt="thumb"
+    data-testid="image"
   />
 );
 

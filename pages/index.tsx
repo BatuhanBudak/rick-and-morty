@@ -8,6 +8,7 @@ import Spinner from "../components/Spinner";
 import { AutoComplete } from "../components/AutoComplete";
 import { getCharacters } from "../apis/rickMorty";
 import { useRouter } from "next/router";
+
 export default function characters() {
   const router = useRouter();
 
@@ -26,7 +27,6 @@ export default function characters() {
           }
           return undefined;
         },
-        // enabled: !!filter,
       }
     );
 
@@ -35,7 +35,7 @@ export default function characters() {
       queryClient.removeQueries({ queryKey: ["characters"], exact: true });
       fetchNextPage();
     }
-  }, [fetchNextPage, filter]);
+  }, [fetchNextPage, filter, queryClient]);
 
   useEffect(() => {
     if (router.isReady) {
@@ -95,7 +95,6 @@ export default function characters() {
           <Link
             href={`/?page=1&status=dead`}
             className="button leading-4 w-2/5 md:w-auto md:leading-6 px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
-            // onClick={() => setFilter("dead")}
           >
             Dead Characters
           </Link>

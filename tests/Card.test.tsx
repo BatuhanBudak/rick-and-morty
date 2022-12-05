@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Card from "../components/Card";
 import "@testing-library/jest-dom";
+
 describe("AutoComplete", () => {
   test("renders correctly with props", () => {
     render(

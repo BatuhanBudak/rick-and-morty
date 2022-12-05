@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Thumb from "../components/Thumb";
 
 type Props = {
@@ -6,8 +5,8 @@ type Props = {
   name: string;
   status: string;
   species: string;
-  type: string;
-  gender: string;
+  type?: string;
+  gender?: string;
   origin: string;
   location: string;
 };
@@ -18,7 +17,6 @@ const CharacterInfo = ({
   status,
   species,
   type,
-  gender,
   origin,
   location,
 }: Props) => (
@@ -55,7 +53,7 @@ const CharacterInfo = ({
             First seen in:
             <span className="block">{origin}</span>
           </li>
-          {type ? <li>Type: {type}</li> : null}
+          {type ? <li data-testid="type">Type: {type}</li> : null}
         </ul>
       </div>
     </div>

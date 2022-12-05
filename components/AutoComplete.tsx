@@ -29,6 +29,7 @@ export const AutoComplete = () => {
                   onClick={() => {
                     setSearch("");
                   }}
+                  data-testid="listItem"
                 >
                   {character.name} ({character.species})
                 </li>
@@ -73,6 +74,7 @@ export const AutoComplete = () => {
           autoComplete="off"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          data-testid="input"
         />
         <label htmlFor="search">Search</label>
         {renderDropdown()}
