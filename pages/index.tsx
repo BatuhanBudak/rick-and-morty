@@ -1,34 +1,21 @@
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { APIResponse, CharacterResponse } from "../apis/types";
+import { CharacterResponse } from "../apis/types";
 import Card from "../components/Card";
 import Grid from "../components/Grid";
 import Spinner from "../components/Spinner";
 import { AutoComplete } from "../components/AutoComplete";
-import { getCharacters } from "../apis/rickMorty";
 import { useRouter } from "next/router";
+import useInfiniteCharacters from "../apis/hooks/useInfiniteCharacters";
+import { FilterButtons } from "../components/FilterButtons";
 
 export default function characters() {
   const router = useRouter();
-
   const [filter, setFilter] = useState<string | string[]>("");
   const queryClient = useQueryClient();
-  const { status, data, isFetchingNextPage, fetchNextPage, hasNextPage } =
-    useInfiniteQuery(
-      ["characters"],
-      async ({ pageParam = 1 }) => {
-        return getCharacters(pageParam, filter);
-      },
-      {
-        getNextPageParam: (lastPage: APIResponse, pages: APIResponse[]) => {
-          if (lastPage.info.next) {
-            return pages.length + 1;
-          }
-          return undefined;
-        },
-      }
-    );
+  const { data, isFetchingNextPage, fetchNextPage, hasNextPage } =
+    useInfiniteCharacters(filter);
 
   useEffect(() => {
     if (filter) {
@@ -50,10 +37,6 @@ export default function characters() {
     }
   }, [router.isReady, router.query]);
 
-  if (status === "error") {
-    return <p>Error </p>;
-  }
-
   return (
     <main className="h-screen ">
       <div
@@ -61,44 +44,7 @@ export default function characters() {
         style={{ backgroundColor: "rgb(32, 35, 41)" }}
       >
         <AutoComplete />
-        <div className="flex flex-wrap md:flex-row md:flex-nowrap justify-center gap-3 md:gap-4">
-          <Link
-            href={`/?page=1&gender=male`}
-            className="button leading-4 w-2/5 md:w-auto md:leading-6 px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
-          >
-            Male Characters
-          </Link>
-          <Link
-            href={`/?page=1&gender=female`}
-            className="button leading-4 w-2/5 md:w-auto md:leading-6 px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
-          >
-            Female Characters
-          </Link>
-          <Link
-            href={`/?page=1&species=human`}
-            className="button leading-4 w-2/5 md:w-auto md:leading-6 px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
-          >
-            Human Characters
-          </Link>
-          <Link
-            href={`/?page=1&species=alien`}
-            className="button leading-4 w-2/5 md:w-auto md:leading-6 px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
-          >
-            Alien Characters
-          </Link>
-          <Link
-            href={`/?page=1&status=alive`}
-            className="button leading-4 w-2/5 md:w-auto md:leading-6 px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
-          >
-            Alive Characters
-          </Link>
-          <Link
-            href={`/?page=1&status=dead`}
-            className="button leading-4 w-2/5 md:w-auto md:leading-6 px-2 py-1 text-white bg-sky-500 hover:bg-sky-600 shadow-sm"
-          >
-            Dead Characters
-          </Link>
-        </div>
+        <FilterButtons />
 
         <Grid title={filter ? `All ${filter} characters` : "All characters"}>
           {data?.pages.map((page, i) => (
