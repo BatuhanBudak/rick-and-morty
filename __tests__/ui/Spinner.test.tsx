@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Spinner from "../components/Spinner";
+import Spinner from "../../components/Spinner";
 
 describe("AutoComplete", () => {
   test("renders correctly with props", async () => {

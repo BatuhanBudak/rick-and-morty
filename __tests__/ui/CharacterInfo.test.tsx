@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import CharacterInfo from "../components/CharacterInfo";
+import CharacterInfo from "../../components/CharacterInfo";
 
 describe("CharacterInfo", () => {
   test("renders correctly with props", async () => {

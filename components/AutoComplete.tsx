@@ -13,6 +13,7 @@ export const AutoComplete = () => {
       <ul
         style={{
           height: "500px",
+          width: "100%",
           overflowY: "scroll",
           overflowX: "hidden",
           cursor: "pointer",

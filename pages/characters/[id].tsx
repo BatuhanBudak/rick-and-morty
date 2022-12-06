@@ -2,14 +2,11 @@ import CharacterInfo from "../../components/CharacterInfo";
 import rickMorty, { getCharacter } from "../../apis/rickMorty";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { CharacterResponse } from "../../apis/types";
+import Episode from "../../components/Episode";
 
 type Props = {
   characterData: CharacterResponse;
 };
-
-import React from "react";
-import { useQuery } from "@tanstack/react-query";
-import Episode from "../../components/Episode";
 
 const CharacterInfoPage: NextPage<Props> = ({ characterData }) => {
   return (

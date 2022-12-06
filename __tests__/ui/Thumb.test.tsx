@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import Thumb from "../components/Thumb";
+import Thumb from "../../components/Thumb";
 
 describe("AutoComplete", () => {
   test("renders correctly with props", async () => {
