@@ -2,9 +2,8 @@ import { rest } from "msw";
 import {
   summerInfoData,
   summerResultsData,
-  fakeEpisodes,
 } from "@/__tests__/__mocks__/fakeData/summerData";
-
+import { fakeEpisodes } from "../fakeData/fakeEpisodes";
 export const handlers = [
   // rest.get("https://rickandmortyapi.com/api/character/"),
   // async (req, res, ctx) => {
@@ -16,9 +15,9 @@ export const handlers = [
   //     return res(ctx.json(summerInfoData));
   //   }
   // },
-  rest.get("https://rickandmortyapi.com/api/episode/:id"),
+  rest.get("/episode/:id"),
   async (req, res, ctx) => {
     const { id } = req.params;
-    return res(ctx.json(fakeEpisodes.results[Number(id)]));
+    return res(ctx.json(fakeEpisodes.results[Number(id) - 1]));
   },
 ];

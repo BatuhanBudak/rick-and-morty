@@ -3,13 +3,16 @@ import React from "react";
 import rickMorty from "../apis/rickMorty";
 
 export default function Episode({ id }: { id: string }) {
-  const { data, status } = useQuery(["episode", id], async () => {
+  const { data, status, error } = useQuery(["episode", id], async () => {
     const response = await rickMorty.get(`/episode/${id}`);
     return response.data;
   });
 
   if (status !== "success") {
     return null;
+  }
+  if (error) {
+    return <p>Error...</p>;
   }
 
   return (
