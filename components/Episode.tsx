@@ -14,7 +14,7 @@ export default function Episode({ id }: { id: string }) {
 
   return (
     <article key={id} className="mb-2">
-      <h6 className="text-white ">
+      <h6 className="text-white">
         {data.episode}. {data.name} - {data.air_date}
       </h6>
     </article>
