@@ -11,7 +11,8 @@ describe("Card", () => {
       />
     );
 
-    expect(screen.getByTestId("heading")).toBeInTheDocument();
-    expect(screen.getByTestId("heading")).toHaveTextContent("Test");
+    expect(screen.getByRole("heading")).toBeInTheDocument();
+    expect(screen.getByRole("heading")).toHaveTextContent("Test");
+    expect(screen.getByTestId("image")).toBeInTheDocument();
   });
 });
