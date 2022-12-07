@@ -6,6 +6,7 @@ import { CharacterResponse } from "../apis/types";
 export const AutoComplete = () => {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<CharacterResponse[][] | undefined>([]);
+  const [loading, setLoading] = useState(0);
 
   const renderDropdown = () => {
     const dropdownClass = search ? "show" : null;
@@ -30,7 +31,6 @@ export const AutoComplete = () => {
                   onClick={() => {
                     setSearch("");
                   }}
-                  data-testid="listItem"
                 >
                   {character.name} ({character.species})
                 </li>
@@ -45,9 +45,16 @@ export const AutoComplete = () => {
   useEffect(() => {
     let isMounted = true;
     const fetchData = async () => {
-      const data = await getCharacterByName(search);
-      if (isMounted) {
-        setResults(data);
+      setLoading((l) => l + 1);
+      try {
+        const data = await getCharacterByName(search);
+        if (isMounted) {
+          setResults(data);
+        }
+      } catch (e) {
+        console.error(e.message);
+      } finally {
+        setLoading((l) => l - 1);
       }
     };
     if (search.length > 0) {
@@ -63,6 +70,7 @@ export const AutoComplete = () => {
 
   return (
     <div className="w-50 my-5 rounded mx-auto ">
+      {loading ? <p className="text-white">Loading...</p> : null}
       <div className="form-floating dropdown">
         <input
           style={{
@@ -75,7 +83,6 @@ export const AutoComplete = () => {
           autoComplete="off"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          data-testid="input"
         />
         <label htmlFor="search">Search</label>
         {renderDropdown()}

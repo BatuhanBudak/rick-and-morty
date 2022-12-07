@@ -32,6 +32,16 @@ describe("CharacterInfo", () => {
     );
 
     const listElements = screen.getAllByRole("listitem");
+
     expect(listElements).toHaveLength(5);
+    expect(screen.getByText("rick")).toBeInTheDocument();
+    expect(screen.getByText(/human - alive/i)).toBeInTheDocument();
+    expect(screen.getByText("mars")).toBeInTheDocument();
+    expect(screen.getByText("earth")).toBeInTheDocument();
+    expect(screen.getByText("Type: humanoid")).toBeInTheDocument();
+    expect(screen.getByTestId("status")).toHaveStyle(
+      "background-color: rgb(34 197 94)"
+    );
+    expect(screen.getByTestId("image")).toBeInTheDocument();
   });
 });

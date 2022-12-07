@@ -30,8 +30,10 @@ export const getCharacterByName = async (
     }
 
     return characters;
-  } catch (err) {
-    console.error(err);
+  } catch (e) {
+    if (e instanceof Error) {
+      console.error(e.message);
+    }
   }
 };
 export const getCharacters = async (

@@ -32,7 +32,7 @@ const CharacterInfo = ({
       </div>
       <div className="text-white px-0 py-4  text-center md:px-8 w-full md:w-1/2">
         <ul className="flex flex-col justify-around h-full gap-4">
-          <li className="text-2xl"> {name}</li>
+          <li className="text-2xl">{name}</li>
           <li className=" capitalize">
             {species} - {status}
             <span
@@ -43,6 +43,7 @@ const CharacterInfo = ({
                   ? "bg-slate-500"
                   : "bg-red-600"
               } `}
+              data-testid="status"
             ></span>
           </li>
 
@@ -53,7 +54,7 @@ const CharacterInfo = ({
             First seen in:
             <span className="block">{origin}</span>
           </li>
-          {type ? <li data-testid="type">Type: {type}</li> : null}
+          {type ? <li>Type: {type}</li> : null}
         </ul>
       </div>
     </div>

@@ -15,7 +15,17 @@ global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
 
 // Establish API mocking before all tests.
-beforeAll(() => server.listen());
+beforeAll(() =>
+  server.listen({
+    onUnhandledRequest(req) {
+      console.error(
+        "Found an unhandled %s request to %s",
+        req.method,
+        req.url.href
+      );
+    },
+  })
+);
 
 // Reset any request handlers that we may add during the tests,
 // so they don't affect other tests.
