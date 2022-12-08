@@ -32,15 +32,3 @@ export function renderWithQueryClient(
     <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
   );
 }
-
-// from https://tkdodo.eu/blog/testing-react-query#for-custom-hooks
-export const createQueryClientWrapper = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  const queryClient = generateTestQueryClient();
-  return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
-};

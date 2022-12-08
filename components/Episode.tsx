@@ -11,12 +11,10 @@ export default function Episode({ id }: { id: string }) {
   if (status !== "success") {
     return null;
   }
-  if (error) {
-    return <p>Error...</p>;
-  }
 
   return (
     <article key={id} className="mb-2">
+      {error ? <p>Error...</p> : null}
       <h6 className="text-white">
         {data.episode}. {data.name} - {data.air_date}
       </h6>

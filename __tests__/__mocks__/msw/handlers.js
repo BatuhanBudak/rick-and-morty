@@ -15,9 +15,12 @@ export const handlers = [
   //     return res(ctx.json(summerInfoData));
   //   }
   // },
-  rest.get("/episode/:id"),
-  async (req, res, ctx) => {
-    const { id } = req.params;
-    return res(ctx.json(fakeEpisodes.results[Number(id) - 1]));
-  },
+  rest.get(
+    "https://rickandmortyapi.com/api/episode/:id",
+    async (req, res, ctx) => {
+      const { id } = req.params;
+      console.log("test");
+      return res(ctx.json(fakeEpisodes.results[Number(id) - 1]));
+    }
+  ),
 ];

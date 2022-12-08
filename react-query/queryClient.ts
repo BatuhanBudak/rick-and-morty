@@ -8,9 +8,9 @@ function queryErrorHandler(error: unknown): void {
 
 export function generateQueryClient(): QueryClient {
   return new QueryClient({
-    // queryCache: new QueryCache({
-    //   onError: queryErrorHandler,
-    // }),
+    queryCache: new QueryCache({
+      onError: queryErrorHandler,
+    }),
     defaultOptions: {
       queries: {
         staleTime: 600000,
@@ -19,6 +19,12 @@ export function generateQueryClient(): QueryClient {
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
       },
+    },
+    logger: {
+      log: console.log,
+      warn: console.warn,
+      // ✅ no more errors on the console
+      error: () => {},
     },
   });
 }
