@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { getCharacterByName } from "../apis/rickMorty";
 import { CharacterResponse } from "../apis/types";
+import Spinner from "./Spinner";
 
 export const AutoComplete = () => {
   const [search, setSearch] = useState("");
@@ -51,8 +52,10 @@ export const AutoComplete = () => {
         if (isMounted) {
           setResults(data);
         }
-      } catch (e) {
-        console.error(e.message);
+      } catch (error) {
+        const title =
+          error instanceof Error ? error.message : "error connecting to server";
+        console.error(title);
       } finally {
         setLoading((l) => l - 1);
       }
@@ -70,7 +73,7 @@ export const AutoComplete = () => {
 
   return (
     <div className="w-50 my-5 rounded mx-auto ">
-      {loading ? <p className="text-white">Loading...</p> : null}
+      {loading ? <Spinner /> : null}
       <div className="form-floating dropdown">
         <input
           style={{
