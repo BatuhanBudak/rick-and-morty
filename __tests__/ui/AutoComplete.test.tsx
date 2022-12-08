@@ -1,7 +1,6 @@
 import {
   render,
   screen,
-  waitFor,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
 import { AutoComplete } from "../../components/AutoComplete";
@@ -17,7 +16,7 @@ describe("Autocomplete", () => {
     expect(nonExistantListElements).toHaveLength(0);
     expect(screen.getByRole("list")).toBeInTheDocument();
   });
-  test("Correctly autocomplete fetched character names", async () => {
+  test("Correctly autocompletes fetched character names", async () => {
     user.setup();
     render(<AutoComplete />);
     const searchInput = screen.getByRole("textbox");
