@@ -10,10 +10,11 @@ import "@testing-library/jest-dom/extend-expect";
 import { TextDecoder, TextEncoder } from "util";
 
 import { server } from "@/__tests__/__mocks__/msw/server";
+import { QueryCache } from "@tanstack/react-query";
 
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
-
+const queryCache = new QueryCache();
 // Establish API mocking before all tests.
 beforeAll(() =>
   server.listen({
@@ -29,7 +30,10 @@ beforeAll(() =>
 
 // Reset any request handlers that we may add during the tests,
 // so they don't affect other tests.
-afterEach(() => server.resetHandlers());
+afterEach(() => {
+  server.resetHandlers();
+  queryCache.clear();
+});
 
 // Clean up after the tests are finished.
 afterAll(() => server.close());

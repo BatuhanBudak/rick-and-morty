@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import { render, RenderResult } from "@testing-library/react";
-import React, { ReactElement } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { generateQueryClient } from "../react-query/queryClient";
@@ -32,3 +32,12 @@ export function renderWithQueryClient(
     <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
   );
 }
+
+//ts
+export const createWrapper = () => {
+  // ✅ creates a new QueryClient for each test
+  const queryClient = generateTestQueryClient();
+  return ({ children }: { children: React.ReactNode }) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+};

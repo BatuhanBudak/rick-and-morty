@@ -4,6 +4,9 @@ import {
   summerResultsData,
 } from "@/__tests__/__mocks__/fakeData/summerData";
 import { fakeEpisodes } from "../fakeData/fakeEpisodes";
+import { fakeLocationsFirst } from "../fakeData/fakeLocations/fakeLocationsFirst";
+import { fakeLocationsSecond } from "../fakeData/fakeLocations/fakeLocationsSecond";
+
 export const handlers = [
   rest.get(
     "https://rickandmortyapi.com/api/character/",
@@ -21,8 +24,20 @@ export const handlers = [
     "https://rickandmortyapi.com/api/episode/:id",
     async (req, res, ctx) => {
       const { id } = req.params;
-      console.log("test");
       return res(ctx.json(fakeEpisodes.results[Number(id) - 1]));
+    }
+  ),
+  rest.get(
+    "https://rickandmortyapi.com/api/location/",
+    async (req, res, ctx) => {
+      const page = req.url.searchParams.get("page");
+      let response;
+      if (page === "1") {
+        response = fakeLocationsFirst;
+      } else if (page === "2") {
+        response = fakeLocationsSecond;
+      }
+      return res(ctx.json(response));
     }
   ),
 ];

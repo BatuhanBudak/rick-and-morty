@@ -45,7 +45,6 @@ export default function Characters() {
       >
         <AutoComplete />
         <FilterButtons />
-
         <Grid title={filter ? `All ${filter} characters` : "All characters"}>
           {data?.pages.map((page, i) => (
             <React.Fragment key={i}>

@@ -13,11 +13,11 @@ export default function useInfiniteLocations() {
   } = useInfiniteQuery(
     ["locations"],
     async ({ pageParam = 1 }) => {
-      const res = await rickMorty.get(`/location?page=${pageParam}`);
+      const res = await rickMorty.get(`/location/?page=${pageParam}`);
       return res.data;
     },
     {
-      getNextPageParam: (lastPage: APIResponse, pages) => {
+      getNextPageParam: (lastPage: APIResponse, pages: APIResponse[]) => {
         if (lastPage.info.next) {
           return pages.length + 1;
         }
