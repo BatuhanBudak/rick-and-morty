@@ -4,7 +4,6 @@ import { LocationResponse } from "../apis/types";
 import Spinner from "./Spinner";
 
 export default function Locations() {
-  const ref = useRef<HTMLButtonElement | null>(null);
   const { status, data, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteLocations();
 
@@ -40,7 +39,11 @@ export default function Locations() {
             <React.Fragment key={i}>
               {page.results?.map((location: LocationResponse) => (
                 <tr key={location.id}>
-                  <th className="border border-slate-300 p-1" scope="row">
+                  <th
+                    role="table-header"
+                    className="border border-slate-300 p-1"
+                    scope="row"
+                  >
                     {location.id}-
                   </th>
                   <td className="border border-slate-300 p-1">
@@ -60,7 +63,6 @@ export default function Locations() {
       </table>
 
       <button
-        ref={ref}
         onClick={() => fetchNextPage()}
         className=" shadow-sm text-white font-semibold text-sm py-2 px-4 bg-sky-500 rounded-none mt-5 mx-auto"
         disabled={!hasNextPage || isFetchingNextPage}
