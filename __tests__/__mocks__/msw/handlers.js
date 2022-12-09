@@ -6,6 +6,8 @@ import {
 import { fakeEpisodes } from "../fakeData/fakeEpisodes";
 import { fakeLocationsFirst } from "../fakeData/fakeLocations/fakeLocationsFirst";
 import { fakeLocationsSecond } from "../fakeData/fakeLocations/fakeLocationsSecond";
+import { fakeEpisodesFirst } from "../fakeData/fakeEpisodes/fakeEpisodesFirst";
+import { fakeEpisodesSecond } from "../fakeData/fakeEpisodes/fakeEpisodesSecond";
 
 export const handlers = [
   rest.get(
@@ -32,12 +34,28 @@ export const handlers = [
     async (req, res, ctx) => {
       const page = req.url.searchParams.get("page");
       let response;
-      ctx.delay(2000);
+
       if (page === "1") {
         response = fakeLocationsFirst;
       } else if (page === "2") {
         response = fakeLocationsSecond;
       }
+      ctx.delay(1200);
+      return res(ctx.json(response));
+    }
+  ),
+  rest.get(
+    "https://rickandmortyapi.com/api/episode/",
+    async (req, res, ctx) => {
+      const page = req.url.searchParams.get("page");
+      let response;
+
+      if (page === "1") {
+        response = fakeEpisodesFirst;
+      } else if (page === "2") {
+        response = fakeEpisodesSecond;
+      }
+      ctx.delay(1200);
       return res(ctx.json(response));
     }
   ),

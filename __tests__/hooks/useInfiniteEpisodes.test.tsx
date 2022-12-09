@@ -1,18 +1,18 @@
 import { waitFor, renderHook } from "@testing-library/react";
-import useInfiniteLocations from "@/apis/hooks/useInfiniteLocations";
+import useInfiniteEpisodes from "@/apis/hooks/useInfiniteEpisodes";
 import { createWrapper } from "@/test-utils";
-import { fakeLocationsFirst } from "../__mocks__/fakeData/fakeLocations/fakeLocationsFirst";
-import { fakeLocationsSecond } from "../__mocks__/fakeData/fakeLocations/fakeLocationsSecond";
+import { fakeEpisodesFirst } from "../__mocks__/fakeData/fakeEpisodes/fakeEpisodesFirst";
+import { fakeEpisodesSecond } from "../__mocks__/fakeData/fakeEpisodes/fakeEpisodesSecond";
 
 describe("useInfiniteLocations", () => {
   it("fetches the locations list", async () => {
     // Fetches Page 1
-    const { result } = renderHook(() => useInfiniteLocations(), {
+    const { result } = renderHook(() => useInfiniteEpisodes(), {
       wrapper: createWrapper(),
     });
     await waitFor(() => expect(result.current.status === "success").toBe(true));
 
-    expect(result.current.data?.pages[0]).toStrictEqual(fakeLocationsFirst);
+    expect(result.current.data?.pages[0]).toStrictEqual(fakeEpisodesFirst);
 
     // Fetches Page 2
 
@@ -20,8 +20,8 @@ describe("useInfiniteLocations", () => {
 
     await waitFor(() =>
       expect(result.current.data?.pages).toStrictEqual([
-        fakeLocationsFirst,
-        fakeLocationsSecond,
+        fakeEpisodesFirst,
+        fakeEpisodesSecond,
       ])
     );
   });

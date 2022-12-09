@@ -13,7 +13,7 @@ export default function useInfiniteEpisodes() {
   } = useInfiniteQuery(
     ["episodes"],
     async ({ pageParam = 1 }) => {
-      const res = await rickMorty.get(`/episode?page=${pageParam}`);
+      const res = await rickMorty.get(`/episode/?page=${pageParam}`);
       return res.data;
     },
     {
