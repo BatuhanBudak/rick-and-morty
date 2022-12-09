@@ -21,10 +21,6 @@ export default function Episodes() {
     }
   }, [inView, fetchNextPage]);
 
-  if (status === "loading") {
-    return <p>Loading...</p>;
-  }
-
   return (
     <main
       className="text-white mt-16 h-full grid items-center px-5 gap-3"
@@ -53,7 +49,11 @@ export default function Episodes() {
           : "Nothing more to load"}
       </button>
 
-      <div>{isFetchingNextPage || isFetching ? <Spinner /> : null}</div>
+      <div>
+        {isFetchingNextPage || isFetching || status === "loading" ? (
+          <Spinner />
+        ) : null}
+      </div>
     </main>
   );
 }

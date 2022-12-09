@@ -2,12 +2,10 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { getCharacterByName } from "../apis/rickMorty";
 import { CharacterResponse } from "../apis/types";
-import Spinner from "./Spinner";
 
 export const AutoComplete = () => {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<CharacterResponse[][] | undefined>([]);
-  const [loading, setLoading] = useState(0);
 
   const renderDropdown = () => {
     const dropdownClass = search ? "show" : null;
@@ -46,7 +44,6 @@ export const AutoComplete = () => {
   useEffect(() => {
     let isMounted = true;
     const fetchData = async () => {
-      setLoading((l) => l + 1);
       try {
         const data = await getCharacterByName(search);
         if (isMounted) {
@@ -56,8 +53,6 @@ export const AutoComplete = () => {
         const title =
           error instanceof Error ? error.message : "error connecting to server";
         console.error(title);
-      } finally {
-        setLoading((l) => l - 1);
       }
     };
     if (search.length > 0) {
@@ -73,7 +68,6 @@ export const AutoComplete = () => {
 
   return (
     <div className="w-50 my-5 rounded mx-auto ">
-      {loading ? <Spinner /> : null}
       <div className="form-floating dropdown">
         <input
           style={{

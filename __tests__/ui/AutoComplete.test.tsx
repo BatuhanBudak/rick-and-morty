@@ -1,8 +1,4 @@
-import {
-  render,
-  screen,
-  waitForElementToBeRemoved,
-} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { AutoComplete } from "../../components/AutoComplete";
 import "@testing-library/jest-dom";
 import user from "@testing-library/user-event";
@@ -21,7 +17,7 @@ describe("Autocomplete", () => {
     render(<AutoComplete />);
     const searchInput = screen.getByRole("textbox");
     await user.type(searchInput, "summer");
-    await waitForElementToBeRemoved(() => screen.getByTestId("spinner"));
+
     const listElements = await screen.findAllByRole("listitem");
 
     expect(listElements).toHaveLength(12);

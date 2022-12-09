@@ -4,8 +4,8 @@ import { createWrapper } from "@/test-utils";
 import { fakeEpisodesFirst } from "../__mocks__/fakeData/fakeEpisodes/fakeEpisodesFirst";
 import { fakeEpisodesSecond } from "../__mocks__/fakeData/fakeEpisodes/fakeEpisodesSecond";
 
-describe("useInfiniteLocations", () => {
-  it("fetches the locations list", async () => {
+describe("useInfiniteEpisodes", () => {
+  it("fetches the episodes list", async () => {
     // Fetches Page 1
     const { result } = renderHook(() => useInfiniteEpisodes(), {
       wrapper: createWrapper(),
