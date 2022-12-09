@@ -3,6 +3,7 @@ import useInfiniteLocations from "@/apis/hooks/useInfiniteLocations";
 import { createWrapper } from "@/test-utils";
 import { fakeLocationsFirst } from "../__mocks__/fakeData/fakeLocations/fakeLocationsFirst";
 import { fakeLocationsSecond } from "../__mocks__/fakeData/fakeLocations/fakeLocationsSecond";
+import { act } from "react-dom/test-utils";
 
 describe("useInfiniteLocations", () => {
   it("fetches the locations list", async () => {
@@ -17,12 +18,16 @@ describe("useInfiniteLocations", () => {
     // Fetches Page 2
 
     result.current.fetchNextPage();
+
+    await waitFor(() => expect(result.current.status === "success").toBe(true));
     await waitFor(() => expect(result.current.isFetchingNextPage).toBe(true));
     await waitFor(() => expect(result.current.isFetchingNextPage).toBe(false));
 
-    expect(result.current.data?.pages).toStrictEqual([
-      fakeLocationsFirst,
-      fakeLocationsSecond,
-    ]);
+    await waitFor(() =>
+      expect(result.current.data?.pages).toStrictEqual([
+        fakeLocationsFirst,
+        fakeLocationsSecond,
+      ])
+    );
   });
 });

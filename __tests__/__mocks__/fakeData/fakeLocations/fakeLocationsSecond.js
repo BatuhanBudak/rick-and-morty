@@ -2,7 +2,7 @@ export const fakeLocationsSecond = {
   info: {
     count: 126,
     pages: 7,
-    next: undefined,
+    next: 3,
     prev: "https://rickandmortyapi.com/api/location/?page=1",
   },
   results: [

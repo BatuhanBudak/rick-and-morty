@@ -32,6 +32,7 @@ export const handlers = [
     async (req, res, ctx) => {
       const page = req.url.searchParams.get("page");
       let response;
+      ctx.delay(2000);
       if (page === "1") {
         response = fakeLocationsFirst;
       } else if (page === "2") {
