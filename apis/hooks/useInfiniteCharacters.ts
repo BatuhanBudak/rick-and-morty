@@ -10,6 +10,7 @@ export default function useInfiniteCharacters(filter: string | string[]) {
     hasNextPage,
     status,
     error,
+    isFetching,
   } = useInfiniteQuery(
     ["characters"],
     async ({ pageParam = 1 }) => {
@@ -31,5 +32,6 @@ export default function useInfiniteCharacters(filter: string | string[]) {
     hasNextPage,
     status,
     error,
+    isFetching,
   };
 }

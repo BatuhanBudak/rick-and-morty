@@ -10,6 +10,8 @@ import { fakeEpisodesFirst } from "../fakeData/fakeEpisodes/fakeEpisodesFirst";
 import { fakeEpisodesSecond } from "../fakeData/fakeEpisodes/fakeEpisodesSecond";
 import { fakeCharactersFirst } from "../fakeData/fakeCharacters/fakeCharactersFirst";
 import { fakeCharactersSecond } from "../fakeData/fakeCharacters/fakeCharactersSecond";
+import { fakeMaleCharactersFirst } from "../fakeData/fakeCharacters/fakeMaleCharactersFirst";
+import { fakeMaleCharactersSecond } from "../fakeData/fakeCharacters/fakeMaleCharactersSecond";
 
 export const handlers = [
   rest.get(
@@ -17,11 +19,15 @@ export const handlers = [
     async (req, res, ctx) => {
       const name = req.url.searchParams.get("name");
       const page = req.url.searchParams.get("page");
-
+      const gender = req.url.searchParams.get("gender");
       if (name === "summer" && page) {
         return res(ctx.json(summerResultsData));
       } else if (name === "summer") {
         return res(ctx.json(summerInfoData));
+      } else if (gender === "male" && page === "1") {
+        return res(ctx.json(fakeMaleCharactersFirst));
+      } else if (gender === "male" && page === "2") {
+        return res(ctx.json(fakeMaleCharactersSecond));
       } else if (page === "1") {
         return res(ctx.json(fakeCharactersFirst));
       } else if (page === "2") {

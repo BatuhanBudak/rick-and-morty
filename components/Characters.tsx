@@ -14,7 +14,7 @@ export default function Characters() {
   const router = useRouter();
   const [filter, setFilter] = useState<string | string[]>("");
   const queryClient = useQueryClient();
-  const { data, isFetchingNextPage, fetchNextPage, hasNextPage } =
+  const { data, isFetchingNextPage, isFetching, fetchNextPage, hasNextPage } =
     useInfiniteCharacters(filter);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export default function Characters() {
             : "Nothing more to load"}
         </button>
 
-        <div>{isFetchingNextPage ? <Spinner /> : null}</div>
+        <div>{isFetchingNextPage || isFetching ? <Spinner /> : null}</div>
       </div>
     </main>
   );
